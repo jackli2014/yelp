@@ -14,6 +14,8 @@ class SearchViewController: UIViewController, UITableViewDataSource{
     
     @IBOutlet weak var searchQueryField: UITextField!
     
+     var results: [JSON] = []
+    
     
     
     let yelpClient = YelpClient(
