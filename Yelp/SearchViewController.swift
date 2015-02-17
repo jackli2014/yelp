@@ -36,6 +36,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         //searchResponseTableView.rowHeight = UITableViewAutomaticDimension
         
         client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
+        searchQueryField.text = "Thai"
         
         client.searchWithTerm("Thai", success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             println(response)
@@ -85,16 +86,32 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         var url = NSURL(string:json[indexPath.row]["snippet_image_url"].string! as String)
         println (url)
         
-        
-        
         cell.venueImg?.setImageWithURL(url!)
         
-        
+        var urlRating = NSURL(string:json[indexPath.row]["rating_img_url"].string! as String)
+        cell.ratingImg?.setImageWithURL(urlRating!)
+    
         return cell
     }
 
     
    
+    @IBAction func searchVenues(sender: UITextField) {
+        client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
+        
+        client.searchWithTerm(searchQueryField.text, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println(response)
+            
+            self.venues = response["businesses"] as NSArray
+            
+            self.searchResponseTableView.reloadData()
+            
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println(error)
+        }
+
+        
+    }
   
     
     func handleSearchResponse(businessListData: [[NSString: AnyObject]]) {
