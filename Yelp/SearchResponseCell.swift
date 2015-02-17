@@ -14,6 +14,7 @@ class SearchResponseCell: UITableViewCell {
     
     @IBOutlet weak var reviewsLabel: UILabel!
     
+    @IBOutlet weak var venueImg: UIImageView!
     
     @IBOutlet weak var tagsLabel: UILabel!
     

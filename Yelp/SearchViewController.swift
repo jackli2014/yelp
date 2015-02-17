@@ -8,25 +8,46 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITableViewDataSource{
+class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet var searchResponseTableView: UITableView!
     
     @IBOutlet weak var searchQueryField: UITextField!
     
-     var results: [JSON] = []
     
+    var venues = NSArray()
+    var venuesData = NSDictionary()
+
     
+    var client: YelpClient!
     
-    let yelpClient = YelpClient(
-        consumerKey: "LA9w9SXIc7uT78aEw7cfcA", consumerSecret: "--5-OyV9N8vfydzkcTmZxs3cPG0",
-        accessToken: "MIk9Hb9bGO1QDCKJJ2UK4rvwfRTr0ScO", accessSecret: "y6fN1Tqp4WgocuuXFyNIeWgEPrs")
-    
+    // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
+    let yelpConsumerKey = "vxKwwcR_NMQ7WaEiQBK_CA"
+    let yelpConsumerSecret = "33QCvh5bIF5jIHR5klQr7RtBDhQ"
+    let yelpToken = "uRcRswHFYa1VkDrGV6LAW2F8clGh5JHV"
+    let yelpTokenSecret = "mqtKIxMIR4iBtBPZCmCLEb-Dz3Y"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchResponseTableView.dataSource = self
+        searchResponseTableView.delegate = self
+        
+        //searchResponseTableView.rowHeight = UITableViewAutomaticDimension
+        
+        client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
+        
+        client.searchWithTerm("Thai", success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println(response)
+            
+            self.venues = response["businesses"] as NSArray
+            
+            self.searchResponseTableView.reloadData()
+            
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println(error)
+        }
+
 
         
 
@@ -39,12 +60,48 @@ class SearchViewController: UIViewController, UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return venues.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("SearchResponseCell") as SearchResponseCell
+        
+        let json = JSON(venues)
+        
+        println(json[indexPath.row] )
+        
+        cell.titleLabel?.text = json[indexPath.row]["name"].string
+        print(json[indexPath.row]["review_count"].number)
+        let count = json[indexPath.row]["review_count"].number
+        let tmp = "\(count)"
+        var start = advance(tmp.startIndex, 9)
+        var end =  advance(tmp.startIndex,  countElements(tmp)-1 )
+        var reviews = tmp.substringWithRange(Range<String.Index>(start: start, end: end))
+        cell.reviewsLabel.text =   reviews
+        
+        cell.tagsLabel?.text =  json[indexPath.row]["categories"][0].array?.description
+        cell.addressLabel?.text = json[indexPath.row]["location"]["address"].array?.description
+        
+        var url = NSURL(string:json[indexPath.row]["snippet_image_url"].string! as String)
+        println (url)
+        
+        
+        
+        cell.venueImg?.setImageWithURL(url!)
+        
+        
         return cell
+    }
+
+    
+   
+  
+    
+    func handleSearchResponse(businessListData: [[NSString: AnyObject]]) {
+        
+        /*for businessData in businessListData {
+            results.append(Business(values: businessData))
+        }*/
     }
 
     
