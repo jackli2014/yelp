@@ -8,14 +8,18 @@
 
 import UIKit
 
-class FilterViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
+class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
      var delegate: FilterDelegate?;
     
+   
     @IBOutlet weak var filterTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.filterTableView.dataSource = self
+        self.filterTableView.delegate = self
         
 
         // Uncomment the following line to preserve selection between presentations
@@ -32,27 +36,28 @@ class FilterViewController: UITableViewController, UITableViewDelegate, UITableV
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    
+     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 3
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return 0
     }
 
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
 
         // Configure the cell...
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

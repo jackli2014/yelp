@@ -4,6 +4,53 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
+        <!--Filter-->
+        <scene sceneID="qEt-XC-hYk">
+            <objects>
+                <viewController id="BZM-ML-ZJB" customClass="FilterViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2kW-ly-Fad"/>
+                        <viewControllerLayoutGuide type="bottom" id="yg1-Q9-3fe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZKT-7M-OFv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ac4-a7-QdD">
+                                <rect key="frame" x="0.0" y="72" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="filterCell" rowHeight="1" id="FDB-Rz-9fK">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FDB-Rz-9fK" id="2Qk-8M-3gt">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="showAllCell" rowHeight="43" id="JEy-C5-veE">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JEy-C5-veE" id="Tz3-Us-Tef">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration" hint="Show All" label="Show All"/>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Filter" id="sbz-2V-mSI">
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="dq3-Dm-JfY"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="filterTableView" destination="Ac4-a7-QdD" id="SJe-dZ-WDA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lPK-r2-wK9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1488" y="-427"/>
+        </scene>
         <!--Search View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -75,7 +122,7 @@
                         </textField>
                         <barButtonItem key="rightBarButtonItem" title="Filter" id="F2R-Qy-dF8">
                             <connections>
-                                <segue destination="Agr-fr-BZt" kind="modal" id="rbx-Av-eMu"/>
+                                <segue destination="dZl-uf-CtK" kind="modal" id="Hrl-21-weL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -107,41 +154,22 @@
             <point key="canvasLocation" x="162" y="177"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="VtJ-mD-E04">
+        <scene sceneID="2yV-s5-sxh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Agr-fr-BZt" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dZl-uf-CtK" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yu5-eU-daj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="h8J-tL-XmE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="J3i-uK-j9T" kind="push" id="lkR-WP-vV8"/>
+                        <segue destination="BZM-ML-ZJB" kind="relationship" relationship="rootViewController" id="wft-3f-5iW"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1rm-qY-4O9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jcX-8p-wbQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1056" y="110"/>
-        </scene>
-        <!--Filter View Controller-->
-        <scene sceneID="y4G-75-iaE">
-            <objects>
-                <viewController id="J3i-uK-j9T" customClass="FilterViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="av8-ia-W6d"/>
-                        <viewControllerLayoutGuide type="bottom" id="0iJ-tQ-LBL"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="5DQ-m1-rtm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="cHF-ir-PyV"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7md-Sn-Tlh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1393" y="105"/>
+            <point key="canvasLocation" x="956" y="-427"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
