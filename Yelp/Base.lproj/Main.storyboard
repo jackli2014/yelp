@@ -33,7 +33,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Filter" id="sbz-2V-mSI">
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="dq3-Dm-JfY"/>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="dq3-Dm-JfY">
+                            <connections>
+                                <action selector="search:" destination="BZM-ML-ZJB" id="ME9-Fe-5AR"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="filterTableView" destination="Ac4-a7-QdD" id="SJe-dZ-WDA"/>

@@ -133,6 +133,15 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
    
 
+    @IBAction func search(sender: AnyObject) {
+        print("search")
+        delegate?.didApplyFilter(selectedCategories)
+         dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    
+   
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

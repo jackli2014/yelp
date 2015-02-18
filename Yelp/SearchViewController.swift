@@ -119,20 +119,53 @@ class SearchViewController: UIViewController, UITableViewDataSource, FilterDeleg
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
-        if (segue.identifier == "SearchToFilter") {
+      
+       
             var filtersNavigationController = segue.destinationViewController as UINavigationController
             var filtersViewController = filtersNavigationController.viewControllers[0] as FilterViewController
             filtersViewController.delegate = self
-        }
+        
         
     }
     
-    func didApplyFilter(categories: NSArray, sort: NSArray) {
+    func didApplyFilter(categories: NSArray) {
+        
+        print("didapplyfilter")
+        
+        print( categories.count)
+        
+        var params = [
+            "term": searchQueryField.text
+           
+        ]
+        
+        var cat : String = ""
+        
+        if (categories.count > 0) {
+             cat = ",".join(categories as [String])
+        }
+        
+        client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
+        
+        
+        client.searchWithTermAndFilter(searchQueryField.text, categories: cat,  success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            //println(response)
+            
+            self.venues = response["businesses"] as NSArray
+            
+            self.searchResponseTableView.reloadData()
+            
+            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println(error)
+        }
+        
+       
+
+        
+        
     
     }
+    
     
 
 }

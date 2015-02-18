@@ -10,7 +10,5 @@ import Foundation
 
 
 protocol FilterDelegate : NSObjectProtocol {
-    func didApplyFilter(categories: NSArray, sort: NSArray)
-    
-    
+    func didApplyFilter(categories: NSArray)
 }
