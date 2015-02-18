@@ -10,6 +10,7 @@ import UIKit
 
 class FilterViewController: UITableViewController, UITableViewDelegate, UITableViewDataSource {
 
+     var delegate: FilterDelegate?;
     
     @IBOutlet weak var filterTableView: UITableView!
     

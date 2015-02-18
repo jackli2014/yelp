@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class SearchViewController: UIViewController, UITableViewDataSource, FilterDelegate{
 
     @IBOutlet var searchResponseTableView: UITableView!
     
@@ -31,7 +31,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         
         searchResponseTableView.dataSource = self
-        searchResponseTableView.delegate = self
+        //searchResponseTableView.delegate = self
         
         //searchResponseTableView.rowHeight = UITableViewAutomaticDimension
         
@@ -114,23 +114,25 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
   
     
-    func handleSearchResponse(businessListData: [[NSString: AnyObject]]) {
-        
-        /*for businessData in businessListData {
-            results.append(Business(values: businessData))
-        }*/
-    }
-
     
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if (segue.identifier == "SearchToFilter") {
+            var filtersNavigationController = segue.destinationViewController as UINavigationController
+            var filtersViewController = filtersNavigationController.viewControllers[0] as FilterViewController
+            filtersViewController.delegate = self
+        }
+        
     }
-    */
+    
+    func didApplyFilter(categories: NSArray, sort: NSArray) {
+    
+    }
+    
 
 }
