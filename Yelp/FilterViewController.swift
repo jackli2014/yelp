@@ -12,16 +12,55 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
      var delegate: FilterDelegate?;
     
+    var isCategorySectionExpanded = false
+    var categories = [
+       "active",
+        "arts",
+        "auto",
+        "beautysvg",
+        "bicycles",
+        "education",
+        "food",
+        "health",
+        "homeservices",
+        "hotelstravel",
+        "nightlife",
+        "pets",
+        "restaurants",
+        "shopping"
+    ]
+
+    
    
     @IBOutlet weak var filterTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.filterTableView.dataSource = self
         self.filterTableView.delegate = self
         
+        categories = [
+            "active",
+            "arts",
+            "auto",
+            "beautysvg",
+            "bicycles",
+            "education",
+            "food",
+            "health",
+            "homeservices",
+            "hotelstravel",
+            "nightlife",
+            "pets",
+            "restaurants",
+            "shopping"
+        ]
 
+        //print(categories.count)
+        
+        self.filterTableView.reloadData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -36,25 +75,26 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     // MARK: - Table view data source
 
-    
+    /*
      func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 3
-    }
+        return 1
+    }*/
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        //print(categories.count)
+        return categories.count
     }
 
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
-
-        // Configure the cell...
-
+        var cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as UITableViewCell
+        cell.textLabel?.text = categories[indexPath.row]        // Configure the cell...
+        print(indexPath.row)
+        
         return cell
     }
     

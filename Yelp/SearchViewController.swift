@@ -39,7 +39,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, FilterDeleg
         searchQueryField.text = "Thai"
         
         client.searchWithTerm("Thai", success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            println(response)
+           // println(response)
             
             self.venues = response["businesses"] as NSArray
             
@@ -69,10 +69,10 @@ class SearchViewController: UIViewController, UITableViewDataSource, FilterDeleg
         
         let json = JSON(venues)
         
-        println(json[indexPath.row] )
+        //println(json[indexPath.row] )
         
         cell.titleLabel?.text = json[indexPath.row]["name"].string
-        print(json[indexPath.row]["review_count"].number)
+        //print(json[indexPath.row]["review_count"].number)
         let count = json[indexPath.row]["review_count"].number
         let tmp = "\(count)"
         var start = advance(tmp.startIndex, 9)
@@ -84,7 +84,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, FilterDeleg
         cell.addressLabel?.text = json[indexPath.row]["location"]["address"].array?.description
         
         var url = NSURL(string:json[indexPath.row]["snippet_image_url"].string! as String)
-        println (url)
+        //println (url)
         
         cell.venueImg?.setImageWithURL(url!)
         
@@ -100,7 +100,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, FilterDeleg
         client = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
         
         client.searchWithTerm(searchQueryField.text, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            println(response)
+            //println(response)
             
             self.venues = response["businesses"] as NSArray
             
