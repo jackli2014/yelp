@@ -30,6 +30,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         "shopping"
     ]
 
+    var selectedCategories: [String] = []
     
    
     @IBOutlet weak var filterTableView: UITableView!
@@ -95,9 +96,42 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.textLabel?.text = categories[indexPath.row]        // Configure the cell...
         print(indexPath.row)
         
+        if let selected = find(selectedCategories, categories[indexPath.row]) {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        }
+        
         return cell
     }
     
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+       
+            categoriesRowSelected(indexPath, inTableView: tableView)
+      
+    }
+
+    
+    
+    private func categoriesRowSelected(indexPath: NSIndexPath, inTableView tableView: UITableView) {
+        var rowAnimation = UITableViewRowAnimation.None
+        
+            var index = find(selectedCategories, categories[indexPath.row])
+        print (index)
+            if (index == nil) {
+                selectedCategories.append(categories[indexPath.row])
+                print("added")
+            } else {
+                selectedCategories.removeAtIndex(index!)
+                print("removed")
+            }
+        
+        
+        tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: rowAnimation)
+    }
+    
+   
 
     /*
     // Override to support conditional editing of the table view.
